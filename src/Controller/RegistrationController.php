@@ -42,6 +42,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // set the signed_at column to the current datetime
+            $user->setSignedAt(new \DateTimeImmutable());
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -50,7 +53,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('admin@pulse.com', 'Pulse Forum'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email

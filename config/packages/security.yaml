@@ -8,12 +8,19 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: pseudo
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                username_parameter: email
+                password_parameter: password
+                enable_csrf: true
+            entry_point: form_login
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\PulseAuthenticator
