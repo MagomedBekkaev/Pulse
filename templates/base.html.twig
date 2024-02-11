@@ -8,6 +8,7 @@
         <script src="https://kit.fontawesome.com/decef442eb.js" crossorigin="anonymous"></script>
         {% block stylesheets %}
         <link rel="stylesheet" href="{{asset('css/nav.css')}}">
+        <link rel="stylesheet" href="{{asset('css/home.css')}}">
         {% endblock %}
 
         {% block javascripts %}
@@ -23,8 +24,13 @@
             <ul>
                 <li><a href="{{ path('app_home') }}" class="active">Accueil</a></li>
                 <li><a href="#">Forums</a></li>
-                <li><a href="{{ path('app_login') }}">Connexion</a></li>
-                <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    <li><a href="#">Profil</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                    <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                {% endif %}
             </ul>
         </nav>
         {% block body %}

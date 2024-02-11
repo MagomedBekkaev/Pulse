@@ -1,7 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Acuueil{% endblock %}
+
+
 
 {% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Bienvenue sur Pulse Forum</h1>
+                <p>Le tout nouveu forum du net!</p>
+                <div class="searchbar">
+                    <input type="text" placeholder="Entrez un mot clé">
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+            {% for forum in forums %}
+            <h2>{{ forum.title }}</h2>
+            {% endfor %}
+        </div>
 
 {% endblock %}
