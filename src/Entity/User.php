@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseudo')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -30,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -53,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'reporter', orphanRemoval: true)]
     private Collection $reports;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     public function __construct()
     {
@@ -315,6 +320,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $report->setReporter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

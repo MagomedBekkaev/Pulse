@@ -22,10 +22,10 @@
                 </label>
                 <label class="logo">Pulse</label>
                 <ul>
-                    <li><a href="#" class="active">Accueil</a></li>
+                    <li><a href="{{ path('app_home') }}" class="active">Accueil</a></li>
                     <li><a href="#">Forums</a></li>
                     <li><a href="#">Connexion</a></li>
-                    <li><a href="#">Inscription</a></li>
+                    <li><a href="{{ path('app_register') }}">Inscription</a></li>
                 </ul>
             </nav>
         {# {% endblock %} #}
