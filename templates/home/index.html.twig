@@ -18,9 +18,14 @@
                     </button>
                 </div>
             </div>
+            {% if forums is not empty %}
             {% for forum in forums %}
-            <h2>{{ forum.title }}</h2>
+                <h2>{{ forum.title }}</h2>
             {% endfor %}
+        {% else %}
+            <p>No forums available.</p>
+        {% endif %}
+        
         </div>
 
 {% endblock %}

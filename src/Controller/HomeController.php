@@ -17,21 +17,12 @@ class HomeController extends AbstractController
         $this->forumRepository = $forumRepository;
     }
 
-     #[Route('/', name: 'app_home')]
-    public function showForum(): Response
-    {
-        $forums = $this->forumRepository->findAll();
-
-        return $this->render('home/index.html.twig', [
-            'forums' => $forums,
-        ]);
-    }
-
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
+        $forums = $this->forumRepository->findAll();
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'forums' => $forums,
         ]);
     }
 }
