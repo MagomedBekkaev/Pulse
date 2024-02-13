@@ -247,4 +247,9 @@ class Post
 
         return $this;
     }
+
+    public function incrementNbView(): void
+    {
+        $this->nbView++;
+    }
 }
