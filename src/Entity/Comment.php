@@ -39,7 +39,7 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Topic $topic = null;
+    private ?Post $post = null;
 
     #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'comment')]
     private Collection $votes;
@@ -152,14 +152,14 @@ class Comment
         return $this->comments;
     }
 
-    public function getTopic(): ?Topic
+    public function getPost(): ?Post
     {
-        return $this->topic;
+        return $this->post;
     }
 
-    public function setTopic(?Topic $topic): static
+    public function setPost(?Post $post): static
     {
-        $this->topic = $topic;
+        $this->post = $post;
 
         return $this;
     }

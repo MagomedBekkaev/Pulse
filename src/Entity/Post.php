@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TopicRepository;
+use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TopicRepository::class)]
-class Topic
+#[ORM\Entity(repositoryClass: PostRepository::class)]
+class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,7 @@ class Topic
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'topics')]
+    #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
@@ -37,17 +37,17 @@ class Topic
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $updatedBy = null;
 
-    #[ORM\ManyToOne(inversedBy: 'topics')]
+    #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'topic', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true)]
     private Collection $comments;
 
-    #[ORM\OneToMany(targetEntity: Follow::class, mappedBy: 'topic')]
+    #[ORM\OneToMany(targetEntity: Follow::class, mappedBy: 'post')]
     private Collection $follows;
 
-    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'topic')]
+    #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'post')]
     private Collection $reports;
 
     public function __construct()
@@ -170,7 +170,7 @@ class Topic
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
-            $comment->setTopic($this);
+            $comment->setPost($this);
         }
 
         return $this;
@@ -180,8 +180,8 @@ class Topic
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getTopic() === $this) {
-                $comment->setTopic(null);
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
             }
         }
 
@@ -200,7 +200,7 @@ class Topic
     {
         if (!$this->follows->contains($follow)) {
             $this->follows->add($follow);
-            $follow->setTopic($this);
+            $follow->setPost($this);
         }
 
         return $this;
@@ -210,8 +210,8 @@ class Topic
     {
         if ($this->follows->removeElement($follow)) {
             // set the owning side to null (unless already changed)
-            if ($follow->getTopic() === $this) {
-                $follow->setTopic(null);
+            if ($follow->getPost() === $this) {
+                $follow->setPost(null);
             }
         }
 
@@ -230,7 +230,7 @@ class Topic
     {
         if (!$this->reports->contains($report)) {
             $this->reports->add($report);
-            $report->setTopic($this);
+            $report->setPost($this);
         }
 
         return $this;
@@ -240,8 +240,8 @@ class Topic
     {
         if ($this->reports->removeElement($report)) {
             // set the owning side to null (unless already changed)
-            if ($report->getTopic() === $this) {
-                $report->setTopic(null);
+            if ($report->getPost() === $this) {
+                $report->setPost(null);
             }
         }
 

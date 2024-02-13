@@ -22,15 +22,15 @@ class Category
     #[ORM\JoinColumn(nullable: false)]
     private ?Forum $forum = null;
 
-    #[ORM\OneToMany(targetEntity: Topic::class, mappedBy: 'category')]
-    private Collection $topics;
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'category')]
+    private Collection $posts;
 
     #[ORM\OneToMany(targetEntity: Follow::class, mappedBy: 'category')]
     private Collection $follows;
 
     public function __construct()
     {
-        $this->topics = new ArrayCollection();
+        $this->posts = new ArrayCollection();
         $this->follows = new ArrayCollection();
     }
 
@@ -64,29 +64,29 @@ class Category
     }
 
     /**
-     * @return Collection<int, Topic>
+     * @return Collection<int, Post>
      */
-    public function getTopics(): Collection
+    public function getPosts(): Collection
     {
-        return $this->topics;
+        return $this->posts;
     }
 
-    public function addTopic(Topic $topic): static
+    public function addPost(Post $post): static
     {
-        if (!$this->topics->contains($topic)) {
-            $this->topics->add($topic);
-            $topic->setCategory($this);
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeTopic(Topic $topic): static
+    public function removePost(Post $post): static
     {
-        if ($this->topics->removeElement($topic)) {
+        if ($this->posts->removeElement($post)) {
             // set the owning side to null (unless already changed)
-            if ($topic->getCategory() === $this) {
-                $topic->setCategory(null);
+            if ($post->getCategory() === $this) {
+                $post->setCategory(null);
             }
         }
 

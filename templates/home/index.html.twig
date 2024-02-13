@@ -26,14 +26,14 @@
                         <ul>
                             {% for category in forum.categories %}
                                 <li><h3>{{ category.title }}</h3></li>
-                                {% if category.topics is not empty %}
+                                {% if category.posts is not empty %}
                                     <ul>
-                                        {% for topic in category.topics %}
-                                            <li>{{ topic.title }}</li>
+                                        {% for post in category.posts %}
+                                            <li>{{ post.title }}</li>
                                         {% endfor %}
                                     </ul>
                                 {% else %}
-                                    <p>No topics available for this category.</p>
+                                    <p>No posts available for this category.</p>
                                 {% endif %}
                             {% endfor %}
                         </ul>

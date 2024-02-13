@@ -42,8 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    #[ORM\OneToMany(targetEntity: Topic::class, mappedBy: 'author')]
-    private Collection $topics;
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'author')]
+    private Collection $posts;
 
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'author')]
     private Collection $comments;
@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->topics = new ArrayCollection();
+        $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->follows = new ArrayCollection();
         $this->votes = new ArrayCollection();
@@ -176,29 +176,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Topic>
+     * @return Collection<int, Post>
      */
-    public function getTopics(): Collection
+    public function getPosts(): Collection
     {
-        return $this->topics;
+        return $this->posts;
     }
 
-    public function addTopic(Topic $topic): static
+    public function addPost(Post $post): static
     {
-        if (!$this->topics->contains($topic)) {
-            $this->topics->add($topic);
-            $topic->setAuthor($this);
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setAuthor($this);
         }
 
         return $this;
     }
 
-    public function removeTopic(Topic $topic): static
+    public function removePost(Post $post): static
     {
-        if ($this->topics->removeElement($topic)) {
+        if ($this->posts->removeElement($post)) {
             // set the owning side to null (unless already changed)
-            if ($topic->getAuthor() === $this) {
-                $topic->setAuthor(null);
+            if ($post->getAuthor() === $this) {
+                $post->setAuthor(null);
             }
         }
 

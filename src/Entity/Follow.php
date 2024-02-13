@@ -23,7 +23,7 @@ class Follow
     private ?Forum $forum = null;
 
     #[ORM\ManyToOne(inversedBy: 'follows')]
-    private ?Topic $topic = null;
+    private ?Post $post = null;
 
     #[ORM\ManyToOne(inversedBy: 'follows')]
     private ?Category $category = null;
@@ -69,14 +69,14 @@ class Follow
         return $this;
     }
 
-    public function getTopic(): ?Topic
+    public function getPost(): ?Post
     {
-        return $this->topic;
+        return $this->post;
     }
 
-    public function setTopic(?Topic $topic): static
+    public function setPost(?Post $post): static
     {
-        $this->topic = $topic;
+        $this->post = $post;
 
         return $this;
     }

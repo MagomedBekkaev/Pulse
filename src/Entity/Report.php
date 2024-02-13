@@ -28,7 +28,7 @@ class Report
     private ?User $reported = null;
 
     #[ORM\ManyToOne(inversedBy: 'reports')]
-    private ?Topic $topic = null;
+    private ?Post $post = null;
 
     #[ORM\ManyToOne(inversedBy: 'reports')]
     private ?Comment $comment = null;
@@ -86,14 +86,14 @@ class Report
         return $this;
     }
 
-    public function getTopic(): ?Topic
+    public function getPost(): ?Post
     {
-        return $this->topic;
+        return $this->post;
     }
 
-    public function setTopic(?Topic $topic): static
+    public function setPost(?Post $post): static
     {
-        $this->topic = $topic;
+        $this->post = $post;
 
         return $this;
     }
