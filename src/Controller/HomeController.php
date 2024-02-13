@@ -21,8 +21,13 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $forums = $this->forumRepository->findAll();
+        $categories = $this->forumRepository->findAll(); // Assuming you have a method to fetch all categories in ForumRepository
+        $topics = $this->forumRepository->findAll();
+
         return $this->render('home/index.html.twig', [
             'forums' => $forums,
+            'categories' => $categories,
+            'topics' => $topics,
         ]);
     }
 }

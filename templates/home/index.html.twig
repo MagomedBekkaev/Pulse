@@ -19,12 +19,31 @@
                 </div>
             </div>
             {% if forums is not empty %}
-            {% for forum in forums %}
-                <h2>{{ forum.title }}</h2>
-            {% endfor %}
-        {% else %}
-            <p>No forums available.</p>
-        {% endif %}
+                <h1>Nos Forums</h1>
+                {% for forum in forums %}
+                    <h2>{{ forum.title }}</h2>
+                    {% if forum.categories is not empty %}
+                        <ul>
+                            {% for category in forum.categories %}
+                                <li><h3>{{ category.title }}</h3></li>
+                                {% if category.topics is not empty %}
+                                    <ul>
+                                        {% for topic in category.topics %}
+                                            <li>{{ topic.title }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>No topics available for this category.</p>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No categories available for this forum.</p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No forums available.</p>
+            {% endif %}
         
         </div>
 
