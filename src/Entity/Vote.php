@@ -22,6 +22,9 @@ class Vote
     #[ORM\ManyToOne(inversedBy: 'votes')]
     private ?Comment $comment = null;
 
+    #[ORM\ManyToOne(inversedBy: 'votes')]
+    private ?Post $post = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Vote
     public function setComment(?Comment $comment): static
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getPost(): ?Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post): static
+    {
+        $this->post = $post;
 
         return $this;
     }

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pulse {{ category.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ category.title }}</h1>
+        <div class="create_post">
+            <button class="create_post"><i class="fa-solid fa-plus"></i>Creér un post</button>
+        </div>
+        {% if posts is not empty %}
+            {% for post in posts %}
+                <div class="post">
+                    {# <a href="{{ path('post_show', { 'id': post.id }) }}"><h1>{{ post.title }}</h1></a> #}
+                    <a href="#"><h1>{{ post.title }}</h1></a>
+                    {# <a href="{{ path('post_show', { 'id': post.id }) }}"><h1>{{ post.description }}</h1></a> #}
+                    <p>{{ post.description }}</p>
+                    <p>Le: {{ post.createdAt|date('H:i:s') }}</p>
+                    <p>Vues: {{ post.nbView }}</p>
+                    {# <p>Par: <a href="{{ path('user_show', { 'id': post.author.id }) }}">{{ post.author.getPseudo() }}</a></p> #}
+                    <p>Par: <a href="#" class="author">{{ post.author.getPseudo() }}</a></p>
+                    <div class="vote">
+                        <button class="vote-button"><i class="fa-regular fa-thumbs-up"></i></button>
+                        <p>Vote: {{ post.votes|length }}</p>
+                        <button class="vote-button"><i class="fa-regular fa-thumbs-down"></i></button>
+                    </div>
+                    {% if post.updatedAt is defined %}
+                        {# <p>Modifié le: {{ post.updatedAt|date('H:i:s') }} par {{ post.updatedBy }}</p> #}
+                    {% else %}
+                        <p>No post available.</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

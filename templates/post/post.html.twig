@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+    {% if posts is not empty %}
+        {% for post in posts %}
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.description }}</p>
+            <p>Created At: {{ post.createdAt }}</p>
+            <p>Number of Views: {{ post.nbView }}</p>
+            <p>Author: {{ post.author }}</p>
+        {% else %}
+            <p>No post available.</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

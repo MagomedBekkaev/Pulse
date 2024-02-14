@@ -50,11 +50,15 @@ class Post
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'post')]
     private Collection $reports;
 
+    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'post')]
+    private Collection $votes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->follows = new ArrayCollection();
         $this->reports = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -251,5 +255,35 @@ class Post
     public function incrementNbView(): void
     {
         $this->nbView++;
+    }
+
+    /**
+     * @return Collection<int, Vote>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): static
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): static
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getPost() === $this) {
+                $vote->setPost(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -27,7 +27,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'forums' => $forums,
             'categories' => $categories,
-            'posts' => $posts,
         ]);
     }
 }
