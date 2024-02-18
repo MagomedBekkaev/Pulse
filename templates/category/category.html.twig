@@ -17,8 +17,8 @@
                     <p>{{ post.description }}</p>
                     <p>Le: {{ post.createdAt|date('H:i:s') }}</p>
                     <p>Vues: {{ post.nbView }}</p>
-                    <p>Par: <a href="{{ path('user_show', { 'id': post.author.id }) }}">{{ post.author.getPseudo() }}</a></p>
-                    {# <p>Par: <a href="#" class="author">{{ post.author.getPseudo() }}</a></p> #}
+                    {# <p>Par: <a href="{{ path('user_show', { 'id': post.author.id }) }}">{{ post.author.getPseudo() }}</a></p> #}
+                    <p>Par: <a href="#" class="author">{{ post.author.getPseudo() }}</a></p>
                     <div class="vote">
                         <button class="vote-button"><i class="fa-regular fa-thumbs-up"></i></button>
                         <p>Vote: {{ post.votes|length }}</p>
