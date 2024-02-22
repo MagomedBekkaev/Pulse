@@ -5,18 +5,40 @@
 {% block body %}
 
     <div class="post-container">
-        <div class="post"> 
+        <div class="post">
             <h1>{{ post.title }}</h1>
+            <p>{{ post.category.title }}</p>
             <p>{{ post.description }}</p>
-            <p>Created At: {{ post.createdAt|date('d-m-Y') }}</p>
-            <p>Number of Views: {{ post.nbView }}</p>
-            <p>Author: {{ post.author.pseudo }}</p>
-        </div>
-        <div class="post-action-buttons">
-
+            <p>Le: {{ post.createdAt|date('d-m-Y') }}</p>
+            <p>Vues: {{ post.nbView }}</p>
+            <a href="#" class="author">{{ post.author.getPseudo() }}</a>
+            <div class="post-action-buttons">
+                <div class="vote">
+                    <button class="vote-button"><i class="fa-solid fa-thumbs-up"></i></button>
+                    <p> {{ post.votes|length }} </p>
+                    <button class="vote-button"><i class="fa-solid fa-thumbs-down"></i></button>
+                </div>
+                <button class="comments-button"><i class="fa-solid fa-comment"></i> {{ post.comments|length }} </button>
+                <button class="share-button"><i class="fa-solid fa-share"></i></button>
+            </div>
         </div>
         <div class="comment">
-
+            <h2>Commentaires</h2>
+            <div class="comment-form">
+                {# <form action="{{ path('app_comment_create', { 'id': post.id }) }}" method="post"> #}
+                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <button type="submit">Commenter</button>
+                </form>
+            </div>
+            <div class="comments">
+                {% for comment in post.comments %}
+                    <div class="comment">
+                        <p>{{ comment.content }}</p>
+                        <p>Par: <a href="#">{{ comment.author.getPseudo() }}</a></p>
+                        <p>Le: {{ comment.createdAt|date('d-m-Y') }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

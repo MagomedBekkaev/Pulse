@@ -6,53 +6,80 @@
     padding-right: 0.5rem;
 }
 
+.post-action-buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 @media (min-width: 320px) {
     
     .post-container {
         max-width: 320px;
     }
 
+    .post-action-buttons {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 5px;
+        left: 10px;
+        gap: 5px;
+    }
+    .post-action-buttons button {
+        background-color: #415A77;
+        border: none;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
 
 }
 
 @media (min-width: 400px) {
-    .container {
+    .post-container {
         max-width: 400px;
     }
 }
 
 @media (min-width: 500px) {
-    .container {
+    .post-container {
         max-width: 500px;
     }
 }
 
 @media (min-width: 650px) {
-    .container {
+    .post-container {
         max-width: 650px;
     }
 }
 
 @media (min-width: 800px) {
-    .container {
+    .post-container {
         max-width: 800px;
     }
 }
 
 @media (min-width: 1024px) {
-    .container {
+    .post-container {
         max-width: 1024px;
     }
 }
 
 @media (min-width: 1280px) {
-    .container {
+    .post-container {
         max-width: 1280px;
     }
 }
 
 @media (min-width: 1536px) {
-    .container {
+    .post-container {
         max-width: 1536px;
     }
 }
