@@ -1,17 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-    {% if posts is not empty %}
-        {% for post in posts %}
+
+    <div class="post-container">
+        <div class="post"> 
             <h1>{{ post.title }}</h1>
             <p>{{ post.description }}</p>
-            <p>Created At: {{ post.createdAt }}</p>
+            <p>Created At: {{ post.createdAt|date('d-m-Y') }}</p>
             <p>Number of Views: {{ post.nbView }}</p>
-            <p>Author: {{ post.author }}</p>
-        {% else %}
-            <p>No post available.</p>
-        {% endfor %}
-    {% endif %}
+            <p>Author: {{ post.author.pseudo }}</p>
+        </div>
+        <div class="post-action-buttons">
+
+        </div>
+        <div class="comment">
+
+        </div>
+    </div>
+
 {% endblock %}
