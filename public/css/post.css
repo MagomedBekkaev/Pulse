@@ -6,16 +6,26 @@
     padding-right: 0.5rem;
 }
 
+.post-container h1, h2, p {
+    color: white;
+}
+
+.post {
+    position: relative;
+    padding-bottom: 50px;
+}
+
 .post-action-buttons {
     position: absolute;
     bottom: 0;
     left: 0;
     display: flex;
     justify-content: center;
-    margin: 5px;
-    padding: 5px;
+    margin: 5px 5px 5px 0px;
+    padding: 5px 5px 5px 0px;
     border-radius: 5px;
 }
+
 
 @media (min-width: 320px) {
     
@@ -23,12 +33,16 @@
         max-width: 320px;
     }
 
+    .post {
+        position: relative;
+    }
+
     .post-action-buttons {
         display: flex;
         justify-content: space-between;
         position: absolute;
-        bottom: 5px;
-        left: 10px;
+        bottom: 3px;
+        left: 0;
         gap: 5px;
     }
     .post-action-buttons button {
@@ -38,8 +52,24 @@
         padding: 5px;
         border-radius: 5px;
     }
-    
 
+    .comment-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1b263b;
+    border: none;
+    color: white;
+    margin: 10px 0px;
+    padding: 5px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+    position: relative;
+    }
+
+    .child-comment {
+        margin-left: 20px;
+    }
 }
 
 @media (min-width: 400px) {

@@ -19,27 +19,40 @@
                     <button class="vote-button"><i class="fa-solid fa-thumbs-down"></i></button>
                 </div>
                 <button class="comments-button"><i class="fa-solid fa-comment"></i> {{ post.comments|length }} </button>
-                <button class="share-button"><i class="fa-solid fa-share"></i></button>
+                <button class="share-button"><i class="fa-solid fa-share-nodes"></i></button>
             </div>
         </div>
-        <div class="comment">
+        <div class="answer">
             <h2>Commentaires</h2>
             <div class="comment-form">
                 {# <form action="{{ path('app_comment_create', { 'id': post.id }) }}" method="post"> #}
-                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <textarea name="comment" id="comment" cols="30" rows="2"></textarea>
                     <button type="submit">Commenter</button>
                 </form>
             </div>
+
             <div class="comments">
                 {% for comment in post.comments %}
-                    <div class="comment">
-                        <p>{{ comment.content }}</p>
-                        <p>Par: <a href="#">{{ comment.author.getPseudo() }}</a></p>
-                        <p>Le: {{ comment.createdAt|date('d-m-Y') }}</p>
+                <div class="{{ comment.parentComment ? 'child-comment' : 'parent-comment' }}">
+                    <div class="comment-info">
+                            {{ comment.content }}
+                        
+                        <p><a href="#">{{ comment.author.getPseudo() }}</a></p>
+                        <p>{{ comment.createdAt|date('d-m-Y') }}</p>
+                        <div class="post-action-buttons">
+                            <div class="vote">
+                                <button class="vote-button"><i class="fa-solid fa-thumbs-up"></i></button>
+                                <p> {{ post.votes|length }} </p>
+                                <button class="vote-button"><i class="fa-solid fa-thumbs-down"></i></button>
+                            </div>
+                            <button class="answer"><i class="fa-solid fa-reply"></i> Répondre</button>
+                            <button class="report"><i class="fa-solid fa-flag"></i> Signaler</button>
+                        </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
+
         </div>
     </div>
-
 {% endblock %}
