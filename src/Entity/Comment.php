@@ -31,11 +31,11 @@ class Comment
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $updatedBy = null;
 
-    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'comments')]
-    private Collection $comment;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'childComments')]
+    private ?Comment $parentComment = null;
 
-    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'comment')]
-    private Collection $comments;
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentComment')]
+    private Collection $childComments;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -49,7 +49,7 @@ class Comment
 
     public function __construct()
     {
-        $this->comment = new ArrayCollection();
+        $this->childComments = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->votes = new ArrayCollection();
         $this->reports = new ArrayCollection();
@@ -120,26 +120,44 @@ class Comment
         return $this;
     }
 
+    public function getParentComment(): ?self
+    {
+        return $this->parentComment;
+    }
+
+    public function setParentComment(?self $parentComment): static
+    {
+        $this->parentComment = $parentComment;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, self>
      */
-    public function getComment(): Collection
+    public function getChildComments(): Collection
     {
-        return $this->comment;
+        return $this->childComments;
     }
 
-    public function addComment(self $comment): static
+    public function addChildComment(self $childComment): static
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment->add($comment);
+        if (!$this->childComments->contains($childComment)) {
+            $this->childComments->add($childComment);
+            $childComment->setParentComment($this);
         }
 
         return $this;
     }
 
-    public function removeComment(self $comment): static
+    public function removeChildComment(self $childComment): static
     {
-        $this->comment->removeElement($comment);
+        if ($this->childComments->removeElement($childComment)) {
+            // set the owning side to null (unless already changed)
+            if ($childComment->getParentComment() === $this) {
+                $childComment->setParentComment(null);
+            }
+        }
 
         return $this;
     }
