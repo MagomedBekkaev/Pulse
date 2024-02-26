@@ -31,28 +31,39 @@
                 </form>
             </div>
 
-            <div class="comments">
-                {% for comment in post.comments %}
-                <div class="{{ comment.parentComment ? 'child-comment' : 'parent-comment' }}">
-                    <div class="comment-info">
-                            {{ comment.content }}
-                        
+            {% macro renderComment(comment, depth = 0) %}
+                <div class="{{ comment.parentComment is not null ? 'child-comment' : 'parent-comment' }}">
+                    <div class="comment-info" style="margin-left: {{ depth * 20 }}px;">
+                        {{ comment.content }}
                         <p><a href="#">{{ comment.author.getPseudo() }}</a></p>
                         <p>{{ comment.createdAt|date('d-m-Y') }}</p>
                         <div class="post-action-buttons">
                             <div class="vote">
                                 <button class="vote-button"><i class="fa-solid fa-thumbs-up"></i></button>
-                                <p> {{ post.votes|length }} </p>
+                                {# <p> {{ post.votes|length }} </p> #}
                                 <button class="vote-button"><i class="fa-solid fa-thumbs-down"></i></button>
                             </div>
                             <button class="answer"><i class="fa-solid fa-reply"></i> Répondre</button>
                             <button class="report"><i class="fa-solid fa-flag"></i> Signaler</button>
                         </div>
                     </div>
+                    {% if comment.childComments is not empty %}
+                        <div class="nested-comments">
+                            {% for childComment in comment.childComments %}
+                                {{ _self.renderComment(childComment, depth + 1) }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
+            {% endmacro %}
+
+            <div class="comments">
+                {% for comment in post.comments %}
+                    {% if comment.parentComment is null %}
+                        {{ _self.renderComment(comment) }}
+                    {% endif %}
                 {% endfor %}
             </div>
-
         </div>
     </div>
 {% endblock %}
