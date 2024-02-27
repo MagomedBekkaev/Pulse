@@ -67,9 +67,9 @@
     position: relative;
     }
 
-    .child-comment {
-        /* margin-left: 20px; */
-    }
+    /* .child-comment {
+        margin-left: 20px;
+    } */
 }
 
 @media (min-width: 400px) {
