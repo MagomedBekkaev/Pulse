@@ -82,6 +82,29 @@
     .post-container {
         max-width: 500px;
     }
+
+    .post-container .post,
+    .post-container .post .category-title,
+    .post-container .post .author-pseudo,
+    .post-container .post .title-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-container .post .title-container {
+        flex-direction: row;
+    }
+
+    .post-container .post .title-container .created-at {
+        align-items: center;
+        margin-left: 10px;
+    }
+
+    .post-container .post .post-title,
+    .post-container .post .post-description,
+    .post-container .post .nb-view {
+        margin-top: 20px;
+    }
 }
 
 @media (min-width: 650px) {
