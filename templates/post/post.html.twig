@@ -31,7 +31,8 @@
                 </form>
             </div>
 
-            {% macro renderComment(comment, depth = 0) %}
+            {% macro renderComment(comment, depth = 0, post) %}
+            
                 <div class="{{ comment.parentComment is not null ? 'child-comment' : 'parent-comment' }}">
                     <div class="comment-info" style="margin-left: {{ depth * 20 }}px;">
                         {{ comment.content }}
@@ -39,8 +40,9 @@
                         <p>{{ comment.createdAt|date('d-m-Y') }}</p>
                         <div class="post-action-buttons">
                             <div class="vote">
+                            {% set post = comment  %}
                                 <button class="vote-button"><i class="fa-solid fa-thumbs-up"></i></button>
-                                {# <p> {{ post.votes|length }} </p> #}
+                                <p> {{ post.votes|length }} </p>
                                 <button class="vote-button"><i class="fa-solid fa-thumbs-down"></i></button>
                             </div>
                             <button class="answer"><i class="fa-solid fa-reply"></i> Répondre</button>
@@ -50,7 +52,7 @@
                     {% if comment.childComments is not empty %}
                         <div class="nested-comments">
                             {% for childComment in comment.childComments %}
-                                {{ _self.renderComment(childComment, depth + 1) }}
+                                {{ _self.renderComment(childComment, depth + 1, post) }}
                             {% endfor %}
                         </div>
                     {% endif %}

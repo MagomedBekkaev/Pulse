@@ -17,18 +17,8 @@ class PostController extends AbstractController
         $this->postRepository = $postRepository;
     }
 
-    #[Route('/post', name: 'app_post')]
-    public function index(): Response
-    {
-        $posts = $this->postRepository->findAll();
-
-        return $this->render('post/post.html.twig', [
-            'posts' => $posts,
-        ]);
-    }
-
     #[Route('/post/{id}', name: 'app_post')]
-    public function show(int $id): Response
+    public function index(int $id): Response
     {
         $post = $this->postRepository->find($id);
 
@@ -39,6 +29,5 @@ class PostController extends AbstractController
         return $this->render('post/post.html.twig', [
             'post' => $post,
         ]);
-}
-
+    }
 }
