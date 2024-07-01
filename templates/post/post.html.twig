@@ -4,13 +4,26 @@
 
 {% block body %}
 
-    <div class="post-container">
+<div class="post-container">
         <div class="post">
             <div class="title-container">
                 <h3 class="category-title">{{ post.category.title }}</h3>
-                <p class="created-at">{{ post.createdAt|date('d-m-Y') }}</p>
-            </div>
-            <p class="author-pseudo">{{ post.author.getPseudo }}</p>
+                {% set seconds = date('now').timestamp - post.createdAt.timestamp %}
+                {% set days = seconds // 86400 %}
+                {% set hours = (seconds // 3600) % 24 %}
+                {% set minutes = (seconds // 60) % 60 %}
+                
+                {% if days > 0 %}
+                    <p class="created-at">{{ days }} day{{ days > 1 ? 's' : '' }} ago</p>
+                {% elseif hours > 0 %}
+                    <p class="created-at">{{ hours }} hour{{ hours > 1 ? 's' : '' }} ago</p>
+                {% elseif minutes > 0 %}
+                    <p class="created-at">{{ minutes }} minute{{ minutes > 1 ? 's' : '' }} ago</p>
+                {% else %}
+                    <p class="created-at">just now</p>
+                {% endif %}
+                <p class="author-pseudo">{{ post.author.getPseudo }}</p>
+            
             <h1 class="post-title">{{ post.title }}</h1>
             <h2 class="post-description">{{ post.description }}</h2>
             <p class="nb-view">Vues: {{ post.nbView }}</p>
